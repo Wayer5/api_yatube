@@ -34,5 +34,6 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user, post=self.get_post())
 
     def get_queryset(self):
+        get_object_or_404(Post, pk=self.kwargs.get('post_id'))
         return Comment.objects.select_related('author').filter(
             post__id=self.kwargs.get('post_id'))
